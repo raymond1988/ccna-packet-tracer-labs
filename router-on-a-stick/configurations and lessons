@@ -1,0 +1,22 @@
+## Lab Portfolio: Enterprise Router-on-a-Stick & Wireless Controller Integration
+
+### Objective
+Deploy and validate multi-VLAN segmentation, inter-VLAN routing, dynamic host configuration, and centralized wireless management using Cisco Packet Tracer.
+
+### Architectural Overview & Implementation
+* **VLAN Segmentation:** Configured three distinct enterprise VLANs—VLAN 10 (IT / Management), VLAN 20 (Data), and VLAN 30 (Clients / Wireless).
+* **Trunking & Routing:** Implemented an 802.1Q trunk link between the distribution switch and a Cisco router. Configured router subinterfaces (`GigabitEthernet0/0.10`, `.20`, `.30`) for inter-VLAN routing using dot1q encapsulation.
+* **DHCP Services:** Hosted DHCP scopes directly on the router (`VLAN10_POOL`, `VLAN20_POOL`, `VLAN30_POOL`) supplying default gateways, subnet masks, and DNS servers.
+* **Wireless Provisioning:** Integrated a Wireless LAN Controller (WLC) with a management IP of `192.168.10.254`. Configured router DHCP Option 43 vendor-specific parameters on the management scope to automate lightweight Access Point (AP) discovery and CAPWAP tunnel establishment for VLAN 30 clients.
+
+### Troubleshooting & Root-Cause Analysis (RCA)
+* **Symptom:** Wireless clients on VLAN 30 received APIPA addresses (`169.254.x.x`) and failed to acquire leases from the router DHCP pool.
+* **Diagnosis:** Inspected trunk encapsulation and verified that native VLAN mismatches between switches caused untagged control traffic drops. Verified router subinterface IP bindings and ICMP reachability across VLAN boundaries.
+* **Resolution:** Corrected native VLAN consistency across trunk links, validated subinterface encapsulation parameters, and verified that DHCP Option 43 hex strings correctly directed APs to the WLC management interface for CAPWAP binding.
+
+### Core Competencies Demonstrated
+* VLAN segmentation & 802.1Q trunking configuration
+* Inter-VLAN routing & router subinterface management
+* DHCP scope configuration & option 43 vendor provisioning
+* CAPWAP protocol architecture & WLC management
+* Systematic troubleshooting & root-cause analysis (RCA)
